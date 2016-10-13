@@ -1,0 +1,57 @@
+{
+  "name": "assemble-jekyll",
+  "description": "Yeoman generator for Assemble that generate layouts, pages, partials, and markdown content for Jekyll static site.",
+  "version": "0.4.2",
+  "homepage": "https://github.com/hariadi/assemble-jekyll",
+  "author": {
+    "name": "Adam Leith P",
+    "url": "http://github.com/adamleithp/"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": {
+    "url": ""
+  },
+  "engines": {
+    "node": ">=0.8.x"
+  },
+  "scripts": {
+    "test": "grunt assemble"
+  },
+  "devDependencies": {
+    "assemble": "~0.4.37",
+    "assemble-contrib-permalinks": "https://github.com/hariadi/assemble-contrib-permalinks/tarball/filename-replacement",
+    "grunt": "~0.4.4",
+    "grunt-connect-rewrite": "^0.2.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-connect": "~0.7.1",
+    "grunt-contrib-copy": "~0.5.0",
+    "grunt-contrib-jshint": "^0.9.2",
+    "grunt-contrib-sass": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "handlebars-helper-compose": "~0.2.12",
+    "handlebars-helper-prettify": "~0.2.1",
+    "time-grunt": "^0.2.10"
+  },
+  "licenses": [
+    {
+      "type": "",
+      "url": ""
+    }
+  ],
+  "dependencies": {
+    "lodash": "~2.4.1"
+  },
+  "keywords": [
+    "assemble",
+    "jekyll",
+    "templates",
+    "handlebars",
+    "site generator",
+    "site builder",
+    "grunt"
+  ]
+}

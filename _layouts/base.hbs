@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>{{title}}</title>
+
+    {{#if page.perPageCss}}
+      <link rel="stylesheet" href="/css/{{page.slug}}/{{perPageCss}}.css" />
+    {{/if}}
+
+  </head>
+  <body>
+    <section>
+      {{> body}}
+    </section>
+  </body>
+
+  {{#if page.perPageJs}}
+    <script src="/js/{{page.slug}}/{{perPageJs}}.js"></script>
+  {{/if}}
+
+</html>
