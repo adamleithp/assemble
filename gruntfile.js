@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         options: {
           layout: 'default.hbs',
           layoutdir: '_layouts',
-          partials: '_partials/*.hbs',
+          partials: '_partials/**/*.hbs',
           flatten: true,
           helpers: [
             './helpers/button.js' // Button Helper
@@ -38,7 +38,7 @@ module.exports = function(grunt) {
 
 
     sass: {
-      dist: {
+      all: {
         files: [{
           expand: true,
           cwd: '_css',
@@ -46,15 +46,49 @@ module.exports = function(grunt) {
           dest: './<%= dist %>/css',
           ext: '.css'
         }]
-      }
+      },
+      global: {
+        files: [{
+          expand: true,
+          cwd: '_css/global/',
+          src: '**/*.scss',
+          dest: './<%= dist %>/css',
+          ext: '.css'
+        }]
+      },
+      specific: {
+        files: [{
+          expand: true,
+          cwd: ['_css/', '!_css/global/'],
+          src: '**/*.scss',
+          dest: './<%= dist %>/css',
+          ext: '.css'
+        }]
+      },
     },
 
 
     uglify: {
-      dist: {
+      all: {
         files: [{
           expand: true,
           cwd: '_js',
+          src: '**/*.js',
+          dest: './<%= dist %>/js',
+        }]
+      },
+      global: {
+        files: [{
+          expand: true,
+          cwd: '_js/global/',
+          src: '**/*.js',
+          dest: './<%= dist %>/js',
+        }]
+      },
+      specific: {
+        files: [{
+          expand: true,
+          cwd: ['_js/global/', '!_css/global/'],
           src: '**/*.js',
           dest: './<%= dist %>/js',
         }]
@@ -96,16 +130,21 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['_js/**/*.js'],
-        tasks: ['uglify:dist']
+        tasks: ['uglify:all']
       },
       styles: {
         files: ['_css/**/*.scss'],
-        tasks: ['sass:dist']
+        tasks: ['sass:all']
       }
     },
 
 
-    clean: ['<%= dist %>/**/*']
+    clean: {
+      all: {
+        src: ['<%= dist %>/**/*']
+      }
+    }
+
   });
 
   grunt.loadNpmTasks('assemble');
@@ -116,15 +155,37 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('build', ['assemble:site', 'sass:dist']);
+  grunt.registerTask('build', ['assemble:site', 'sass:all']);
+
   grunt.registerTask('serve', [
-    'clean',
+    'clean:all',
     'assemble:site',
-    'uglify:dist',
-    'sass:dist',
+    'uglify:all',
+    'sass:all',
     'configureRewriteRules',
     'connect:server',
     'watch'
   ]);
+
+  grunt.registerTask('global', [
+    'clean:all',
+    'uglify:global',
+    'sass:global',
+    'configureRewriteRules',
+    'connect:server',
+    'watch'
+  ]);
+
+  grunt.registerTask('specific', [
+    'clean:all',
+    'assemble:site',
+    'uglify:specific',
+    'sass:specific',
+    'configureRewriteRules',
+    'connect:server',
+    'watch'
+  ]);
+
+
 
 };

@@ -2,19 +2,12 @@
 <html>
   <head>
     <title>{{title}}</title>
-
-    {{#if page.perPageCss}}
-      <link rel="stylesheet" href="/css/{{page.slug}}/{{perPageCss}}.css" />
-    {{/if}}
-
+    <meta name="description" content="{{page.descriptopm}}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{> styles}}
   </head>
-
   <body class="{{page.slug}}">
     {{> body}}
   </body>
-
-  {{#if page.perPageJs}}
-    <script src="/js/{{page.slug}}/{{perPageJs}}.js"></script>
-  {{/if}}
-
+  {{> scripts}}
 </html>

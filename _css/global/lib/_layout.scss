@@ -1,0 +1,38 @@
+$breakpoint-sm: '(min-width: 40em)' !default;
+$breakpoint-md: '(min-width: 52em)' !default;
+$breakpoint-lg: '(min-width: 64em)' !default;
+
+.clearfix {
+  &:before, &:after {
+    content: " ";
+    display: table
+  }
+  &:after {clear: both}
+}
+
+.inline           {display: inline}
+.block            {display: block}
+.inline-block     {display: inline-block}
+.table            {display: table}
+.table-cell       {display: table-cell}
+
+// Overflows
+.overflow-hidden  {overflow: hidden}
+.overflow-auto    {overflow: auto}
+
+// Floats
+.left             {float:left}
+.right            {float:right}
+
+@media #{$breakpoint-sm} {
+  .sm-right       {float: right}
+  .sm-left        {float: left}
+}
+@media #{$breakpoint-md} {
+  .md-right       {float: right}
+  .md-left        {float: left}
+}
+@media #{$breakpoint-lg} {
+  .lg-right       {float: right}
+  .lg-left        {float: left}
+}

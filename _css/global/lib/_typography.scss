@@ -1,0 +1,80 @@
+$breakpoint-sm: '(min-width: 40em)' !default;
+$breakpoint-md: '(min-width: 52em)' !default;
+$breakpoint-lg: '(min-width: 64em)' !default;
+
+$line-height-1: 1 !default;
+$line-height-2: 1.125 !default;
+$line-height-3: 1.25 !default;
+$line-height-4: 1.5 !default;
+$line-height-5: 1.75 !default;
+$line-height-6: 2 !default;
+
+$letter-spacing: .5 !default;
+$caps-letter-spacing: .06em !default;
+$bold-font-weight: bold !default;
+
+// General Text Styling
+.t-bold       {font-weight: $bold-font-weight}
+.t-regualar   {font-weight: normal}
+.t-italic     {font-weight: italic}
+.t-caps       {text-transform: uppercase}
+.t-capitalize {text-transform: capitalize}
+.t-underline  {text-decoration: underline}
+.t-none       {text-decoration: none}
+
+.t-nowrap     {white-space: nowrap}
+.t-break      {word-wrap: break-word}
+
+// Line Heights
+.lh1          {line-height: $line-height-1}
+.lh2          {line-height: $line-height-2}
+.lh3          {line-height: $line-height-3}
+.lh4          {line-height: $line-height-4}
+.lh5          {line-height: $line-height-5}
+.lh6          {line-height: $line-height-6}
+
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Text Alignments
+.t-left       {text-align: left}
+.t-center     {text-align: center}
+.t-right      {text-align: right}
+
+@media #{$breakpoint-sm} {
+  .sm-t-center {
+    text-align: center;
+  }
+  .sm-t-left {
+    text-align: left;
+  }
+  .sm-t-right {
+    text-align: right;
+  }
+}
+@media #{$breakpoint-md} {
+  .md-t-center {
+    text-align: center;
+  }
+  .md-t-left {
+    text-align: left;
+  }
+  .md-t-right {
+    text-align: right;
+  }
+}
+@media #{$breakpoint-lg} {
+  .lg-t-center {
+    text-align: center;
+  }
+  .lg-t-left {
+    text-align: left;
+  }
+  .lg-t-right {
+    text-align: right;
+  }
+}
