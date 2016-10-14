@@ -10,6 +10,7 @@
 
 **TODO**
 
-* Write proper style guides and design patterns
-* Break down grunt tasks into more faster respective builds (clean etc)
-* Test API calls
+* Documentation: Write proper style guides and design patterns
+* Grunt: Break down grunt tasks into more faster respective builds (clean etc)
+* Grunt: Allow specific theme to be compiled, from `grunt serve --theme=base` or `grunt serve --theme=moveVar1` etc.
+* Development: Test API calls
