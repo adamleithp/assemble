@@ -1,0 +1,42 @@
+$breakpoint-sm: '(min-width: 40em)' !default;
+$breakpoint-md: '(min-width: 52em)' !default;
+$breakpoint-lg: '(min-width: 64em)' !default;
+
+$margin-step-start: 1;
+$margin-step-limit: 6;
+$margin-unit: 6;
+
+// Margins
+.m0       {margin: 0}
+.mp5      {margin: .5em}
+@for $i from $margin-step-start through $margin-step-limit {
+  .m#{$i} {margin: #{$i}em}
+}
+
+// Margin-tops
+.mt0       {margin: 0}
+.mtp5      {margin: .5em}
+@for $i from $margin-step-start through $margin-step-limit {
+  .mt#{$i} {margin: #{$i}em}
+}
+
+// Margin-rights
+.mr0       {margin: 0}
+.mrp5      {margin: .5em}
+@for $i from $margin-step-start through $margin-step-limit {
+  .mr#{$i} {margin: #{$i}em}
+}
+
+// Margin-bottoms
+.mb0       {margin: 0}
+.mbp5      {margin: .5em}
+@for $i from $margin-step-start through $margin-step-limit {
+  .mb#{$i} {margin: #{$i}em}
+}
+
+// Margin-lefts
+.ml0       {margin: 0}
+.mlp5      {margin: .5em}
+@for $i from $margin-step-start through $margin-step-limit {
+  .ml#{$i} {margin: #{$i}em}
+}
