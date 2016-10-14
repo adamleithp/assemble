@@ -8,10 +8,9 @@
     {{/if}}
 
   </head>
-  <body>
-    <section>
-      {{> body}}
-    </section>
+
+  <body class="{{page.slug}}">
+    {{> body}}
   </body>
 
   {{#if page.perPageJs}}

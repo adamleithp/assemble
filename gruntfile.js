@@ -4,9 +4,10 @@ var rewriteRulesSnippet = require("grunt-connect-rewrite/lib/utils")
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    // Set Vars (move to congif.yml)
 		dist: '_site',
 
-
+    // Magic
     assemble: {
       site: {
         options: {
@@ -14,10 +15,11 @@ module.exports = function(grunt) {
           layoutdir: '_layouts',
           partials: '_partials/*.hbs',
           flatten: true,
+          helpers: [
+            './helpers/button.js' // Button Helper
+          ],
           plugins: ['assemble-contrib-permalinks','assemble-contrib-sitemap'],
-
           permalinks: {
-            // filename: true,
             structure: '/:slug/:filename',
           },
           files: {
@@ -64,7 +66,7 @@ module.exports = function(grunt) {
       options: {
         livereload: true,
         port: 9001,
-        base: './<%= dist %>/', //
+        base: './<%= dist %>/',
       },
       rules: [{
         from: '(^((?!css|html|js|img|fonts|\/$).)*$)',
