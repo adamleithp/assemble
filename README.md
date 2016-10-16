@@ -4,7 +4,7 @@ Build highly functional static websites with minimal effort.
 
 Per page assets compiled and rendered in the folder structure you choose.
 
-Built with [Assemble](https://github.com/assemble/assemble/) and [HandleBars](https://github.com/wycats/handlebars.js/) with [Grunt.js](https://github.com/gruntjs/grunt) powering it all. With [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), [Sass](http://sass-lang.com/), ([Babel.js](https://github.com/babel/babel) coming soon),
+Built with [Assemble](https://github.com/assemble/assemble/) and [HandleBars](https://github.com/wycats/handlebars.js/) with [Grunt.js](https://github.com/gruntjs/grunt) powering it all. With [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), [Sass](http://sass-lang.com/) and [Babel.js](https://github.com/babel/babel),
 
 
 ---

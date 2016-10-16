@@ -1,1 +1,5 @@
-console.log('global');
+const global = function() {
+  console.log('Global')
+}
+
+global()

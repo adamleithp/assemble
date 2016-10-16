@@ -81,23 +81,35 @@ module.exports = function(grunt) {
     },
 
 
+    babel: {
+      options: {
+        "sourceMap": true
+      },
+      dist: {
+        files: [{
+          expand: true,
+          cwd: '_js',
+          src: '**/*.js',
+          dest: './<%= dist %>/js',
+        }]
+      }
+    },
+
+
     uglify: {
-      dev: {
-        files: [{
-          expand: true,
-          cwd: '_js',
-          src: '**/*.js',
-          dest: './<%= dist %>/js',
-        }]
-      },
       prod: {
+        option: {
+          beautify: true,
+          mangle: true,
+          compress: true
+        },
         files: [{
           expand: true,
-          cwd: '_js',
+          cwd: './<%= dist %>/js',
           src: '**/*.js',
           dest: './<%= dist %>/js',
         }]
-      },
+      }
     },
 
 
@@ -161,7 +173,7 @@ module.exports = function(grunt) {
       },
       js: {
         files: ['_js/**/*.js'],
-        tasks: ['uglify:dev']
+        tasks: ['babel']
       },
       styles: {
         files: ['_css/**/*.scss'],
@@ -183,6 +195,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-connect-rewrite');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-babel');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
   grunt.loadNpmTasks('grunt-contrib-imagemin');
@@ -197,7 +210,7 @@ module.exports = function(grunt) {
     'clean:dev',
     'copy:dev',
     'assemble:dev',
-    'uglify:dev',
+    'babel',
     'sass:dev',
     'configureRewriteRules',
     'connect:server',
@@ -210,6 +223,7 @@ module.exports = function(grunt) {
     'clean:dev',
     'copy:dev',
     'assemble:dev',
+    'babel',
     'uglify:prod',
     'sass:prod',
     'configureRewriteRules',
