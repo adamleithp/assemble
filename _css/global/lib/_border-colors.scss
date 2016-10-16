@@ -22,6 +22,7 @@ $darkgray:  #2A2A2A !default;
 $gray:      #888 !default;
 $black:     #2b2b2b !default;
 
+
 // Backgroun colours
 .border-black       {border-color: $black}
 .border-darkgray    {border-color: $darkgray}
@@ -42,3 +43,18 @@ $black:     #2b2b2b !default;
 .border-fuchsia     {border-color: $fuchsia}
 .border-purple      {border-color: $purple}
 .border-maroon      {border-color: $maroon}
+
+// Gray Spectrum
+.border-gray0       {background-color: lighten($gray, 50)}
+.border-gray1       {border-color: lighten($gray, 40)}
+.border-gray2       {border-color: lighten($gray, 30)}
+.border-gray3       {border-color: lighten($gray, 20)}
+.border-gray4       {border-color: lighten($gray, 10)}
+
+.border-gray5       {border-color: $gray}
+
+.border-gray6       {border-color: darken($gray, 10)}
+.border-gray7       {border-color: darken($gray, 20)}
+.border-gray8       {border-color: darken($gray, 30)}
+.border-gray9       {border-color: darken($gray, 40)}
+.border-gray10      {border-color: darken($gray, 50)}

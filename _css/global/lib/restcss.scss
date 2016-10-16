@@ -1,12 +1,15 @@
 // Because
 * {box-sizing: border-box}
 
+
 // Default
 @import "type-scale";
 @import "typography";
 @import "layout";
 @import "margins";
+@import "margins-responsive";
 @import "paddings";
+@import "paddings-responsive";
 @import "grid";
 @import "flexbox";
 @import "position";

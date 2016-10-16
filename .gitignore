@@ -1,9 +1,6 @@
 node_modules
-dist
 npm-debug.log
 _site
-vendor
-
 tmp
 *.sass-cache
 *.DS_Store

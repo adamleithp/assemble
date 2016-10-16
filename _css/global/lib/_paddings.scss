@@ -6,37 +6,52 @@ $padding-step-start: 1;
 $padding-step-limit: 6;
 $padding-unit: 6;
 
+
 // paddings
-.p0       {padding: 0}
-.pp5      {padding: .5em}
+.p0         {padding: 0}
+.pp5        {padding: .5em}
 @for $i from $padding-step-start through $padding-step-limit {
-  .p#{$i} {padding: #{$i}em}
+  .p#{$i}   {padding: #{$i}em}
 }
 
 // padding-tops
-.pt0       {padding: 0}
-.ptp5      {padding: .5em}
+.pt0        {padding: 0}
+.ptp5       {padding: .5em}
 @for $i from $padding-step-start through $padding-step-limit {
-  .pt#{$i} {padding: #{$i}em}
+  .pt#{$i}  {padding: #{$i}em}
 }
 
 // padding-rights
-.pr0       {padding: 0}
-.prp5      {padding: .5em}
+.pr0        {padding: 0}
+.prp5       {padding: .5em}
 @for $i from $padding-step-start through $padding-step-limit {
-  .pr#{$i} {padding: #{$i}em}
+  .pr#{$i}  {padding: #{$i}em}
 }
 
 // padding-bottoms
-.pb0       {padding: 0}
-.pbp5      {padding: .5em}
+.pb0        {padding: 0}
+.pbp5       {padding: .5em}
 @for $i from $padding-step-start through $padding-step-limit {
-  .pb#{$i} {padding: #{$i}em}
+  .pb#{$i}  {padding: #{$i}em}
 }
 
 // padding-lefts
-.pl0       {padding: 0}
-.plp5      {padding: .5em}
+.pl0        {padding: 0}
+.plp5       {padding: .5em}
 @for $i from $padding-step-start through $padding-step-limit {
-  .pl#{$i} {padding: #{$i}em}
+  .pl#{$i}  {padding: #{$i}em}
+}
+
+// padding axis X
+.px0        {padding: 0}
+.pxp5       {padding: .5em}
+@for $i from $padding-step-start through $padding-step-limit {
+  .px#{$i}  {padding-left: #{$i}em; padding-left: #{$i}em}
+}
+
+// padding axis Y
+.py0        {padding: 0}
+.pyp5       {padding: .5em}
+@for $i from $padding-step-start through $padding-step-limit {
+  .py#{$i}  {padding-left: #{$i}em; padding-left: #{$i}em}
 }

@@ -2,7 +2,6 @@ var rewriteRulesSnippet = require("grunt-connect-rewrite/lib/utils")
                           .rewriteRequest;
 
 module.exports = function(grunt) {
-
   grunt.initConfig({
     // Set Vars (move to congif.yml)
 		dist: '_site',
@@ -14,7 +13,7 @@ module.exports = function(grunt) {
 
     // Magic
     assemble: {
-      site: {
+      dev: {
         options: {
           layout: 'default.hbs',
           layoutdir: '_layouts',
@@ -43,7 +42,10 @@ module.exports = function(grunt) {
 
 
     sass: {
-      all: {
+      dev: {
+        options: {
+          style: 'expanded'
+        },
         files: [{
           expand: true,
           cwd: '_css',
@@ -52,19 +54,13 @@ module.exports = function(grunt) {
           ext: '.css'
         }]
       },
-      global: {
+      prod: {
+        options: {
+          style: 'compressed'
+        },
         files: [{
           expand: true,
-          cwd: '_css/global/',
-          src: '**/*.scss',
-          dest: './<%= dist %>/css',
-          ext: '.css'
-        }]
-      },
-      specific: {
-        files: [{
-          expand: true,
-          cwd: ['_css/', '!_css/global/'],
+          cwd: '_css',
           src: '**/*.scss',
           dest: './<%= dist %>/css',
           ext: '.css'
@@ -74,7 +70,7 @@ module.exports = function(grunt) {
 
 
     uglify: {
-      all: {
+      dev: {
         files: [{
           expand: true,
           cwd: '_js',
@@ -82,27 +78,19 @@ module.exports = function(grunt) {
           dest: './<%= dist %>/js',
         }]
       },
-      global: {
+      prod: {
         files: [{
           expand: true,
-          cwd: '_js/global/',
+          cwd: '_js',
           src: '**/*.js',
           dest: './<%= dist %>/js',
         }]
       },
-      specific: {
-        files: [{
-          expand: true,
-          cwd: ['_js/global/', '!_css/global/'],
-          src: '**/*.js',
-          dest: './<%= dist %>/js',
-        }]
-      }
     },
 
 
     htmlmin: {
-      all: {
+      prod: {
         options: {
           removeComments: true,
           collapseWhitespace: true
@@ -145,41 +133,41 @@ module.exports = function(grunt) {
           '_pages/**/*.hbs',
           '_partials/**/*.hbs'
         ],
-        tasks: ['assemble:site']
+        tasks: ['assemble:dev']
       },
       js: {
         files: ['_js/**/*.js'],
-        tasks: ['uglify:all']
+        tasks: ['uglify:dev']
       },
       styles: {
         files: ['_css/**/*.scss'],
-        tasks: ['sass:all']
+        tasks: ['sass:dev']
       }
     },
 
 
     clean: {
-      all: {
+      dev: {
         src: ['<%= dist %>/**/*']
       },
-      global: {
-        src: [
-          '<%= dist %>/css/global/',
-          '<%= dist %>/js/global/'
-        ]
-      },
-      specific: {
-        src: [
-          '<%= dist %>/css/global/',
-          '<%= dist %>/js/global/',
-        ]
-      },
-      base: {
-        src: [
-          '<%= dist %>/css/global/base.css',
-          '<%= dist %>/js/global/base.css',
-        ]
-      },
+      // global: {
+      //   src: [
+      //     '<%= dist %>/css/global/',
+      //     '<%= dist %>/js/global/'
+      //   ]
+      // },
+      // specific: {
+      //   src: [
+      //     '<%= dist %>/css/global/',
+      //     '<%= dist %>/js/global/',
+      //   ]
+      // },
+      // base: {
+      //   src: [
+      //     '<%= dist %>/css/global/base.css',
+      //     '<%= dist %>/js/global/base.css',
+      //   ]
+      // },
     }
 
   });
@@ -197,22 +185,11 @@ module.exports = function(grunt) {
 
   // Build
   // Rebuild and Watch entire website
-  grunt.registerTask('serve', [
-    'clean:all',
-    'assemble:site',
-    'uglify:all',
-    'sass:all',
-    'configureRewriteRules',
-    'connect:server',
-    'watch'
-  ]);
-
-  // Build
-  // Rebuild and Watch global items
-  grunt.registerTask('global', [
-    'clean:global',
-    'uglify:global',
-    'sass:global',
+  grunt.registerTask('dev', [
+    'clean:dev',
+    'assemble:dev',
+    'uglify:dev',
+    'sass:dev',
     'configureRewriteRules',
     'connect:server',
     'watch'
@@ -220,18 +197,24 @@ module.exports = function(grunt) {
 
   // Build
   // Rebuild and Watch specific-per-page items
-  grunt.registerTask('specific', [
-    'clean:all',
-    'assemble:site',
-    'uglify:specific',
-    'sass:specific',
+  grunt.registerTask('prod', [
+    'clean:dev',
+    'assemble:dev',
+    'uglify:prod',
+    'sass:prod',
     'configureRewriteRules',
     'connect:server',
+    'htmlmin:prod',
     'watch'
   ]);
+};
+
+
+// TODO
 
   // Theme Specific
-  // Register task.
+  // When your project gets out of control from all the variations or themes, compiling soley the theme you're developing is important and time saving for development.
+  
   // var theme = grunt.option('theme') || 'all';
   //
   // grunt.registerTask('theme', [
@@ -243,17 +226,3 @@ module.exports = function(grunt) {
   //   'connect:server',
   //   'watch'
   // ]);
-
-  // Build
-  // Rebuild and Watch specific-per-page items
-  grunt.registerTask('prod', [
-    'clean:all',
-    'assemble:site',
-    'uglify:specific',
-    'sass:specific',
-    'configureRewriteRules',
-    'connect:server',
-    'htmlmin:all',
-    'watch'
-  ]);
-};
