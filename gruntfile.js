@@ -41,6 +41,18 @@ module.exports = function(grunt) {
     },
 
 
+    copy: {
+      dev: {
+        files: [{
+          expand: true,
+          cwd: '_images',
+          src: '**',
+          dest: '<%= dist %>/images/'
+        }],
+      },
+    },
+
+
     sass: {
       dev: {
         options: {
@@ -103,6 +115,18 @@ module.exports = function(grunt) {
     },
 
 
+    imagemin: {
+      prod: {
+        files: [{
+          expand: true,
+          cwd: '<%= dist %>',
+          src: ['**/*.{png,jpg,gif}'],
+          dest: '<%= dist %>'
+        }]
+      }
+    },
+
+
     connect: {
       options: {
         livereload: true,
@@ -150,36 +174,20 @@ module.exports = function(grunt) {
       dev: {
         src: ['<%= dist %>/**/*']
       },
-      // global: {
-      //   src: [
-      //     '<%= dist %>/css/global/',
-      //     '<%= dist %>/js/global/'
-      //   ]
-      // },
-      // specific: {
-      //   src: [
-      //     '<%= dist %>/css/global/',
-      //     '<%= dist %>/js/global/',
-      //   ]
-      // },
-      // base: {
-      //   src: [
-      //     '<%= dist %>/css/global/base.css',
-      //     '<%= dist %>/js/global/base.css',
-      //   ]
-      // },
     }
 
   });
 
   grunt.loadNpmTasks('assemble');
-  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-connect-rewrite');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-htmlmin');
+  grunt.loadNpmTasks('grunt-contrib-imagemin');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-clean');
 
   grunt.registerTask('build', ['assemble:site', 'sass:all']);
 
@@ -187,6 +195,7 @@ module.exports = function(grunt) {
   // Rebuild and Watch entire website
   grunt.registerTask('dev', [
     'clean:dev',
+    'copy:dev',
     'assemble:dev',
     'uglify:dev',
     'sass:dev',
@@ -199,12 +208,14 @@ module.exports = function(grunt) {
   // Rebuild and Watch specific-per-page items
   grunt.registerTask('prod', [
     'clean:dev',
+    'copy:dev',
     'assemble:dev',
     'uglify:prod',
     'sass:prod',
     'configureRewriteRules',
     'connect:server',
     'htmlmin:prod',
+    'imagemin:prod',
     'watch'
   ]);
 };
@@ -214,7 +225,7 @@ module.exports = function(grunt) {
 
   // Theme Specific
   // When your project gets out of control from all the variations or themes, compiling soley the theme you're developing is important and time saving for development.
-  
+
   // var theme = grunt.option('theme') || 'all';
   //
   // grunt.registerTask('theme', [
