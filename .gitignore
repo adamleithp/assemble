@@ -1,6 +1,6 @@
 node_modules
-npm-debug.log
-_site
-tmp
-*.sass-cache
-*.DS_Store
+/.sass-cache
+.DS_Store
+css/**/*.css
+css/**/*.css.map
+_site/

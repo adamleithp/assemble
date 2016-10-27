@@ -1,253 +1,217 @@
-var rewriteRulesSnippet = require("grunt-connect-rewrite/lib/utils")
-                          .rewriteRequest;
-
 module.exports = function(grunt) {
-  grunt.initConfig({
-    // Set Vars (move to congif.yml)
-		dist: '_site',
+    // Project configuration.
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
+        data: grunt.file.readJSON('data.json'),
+        src: 'src',
+        dist: '_site',
 
-
-    // Register all the themes/variations and loop through them as array
-    // var variations = ['base'];
-
-
-    // Magic
-    assemble: {
-      dev: {
-        options: {
-          layout: 'default.hbs',
-          layoutdir: '_layouts',
-          partials: '_partials/**/*.hbs',
-          flatten: true,
-          helpers: [
-            './helpers/button.js' // Button Helper
-          ],
-          plugins: ['assemble-contrib-permalinks','assemble-contrib-sitemap'],
-          permalinks: {
-            structure: '/:slug/:filename',
-          },
-          files: {
-            './': ['./_pages/html/**/*.hbs']
-          }
+        // Clean Directory (**)
+        // Destroy all files in these directories.
+        // Run before other tasks.
+        clean: {
+            html: {
+                src: ['<%= dist %>/html/**/*']
+            },
+            dev: {
+                src: ['<%= dist %>/**/*']
+            },
         },
-        pages: {
-          files: {
-            '<%= dist %>/': ['<%= dist %>/_pages/**/*.hbs']
-          }
+
+
+        // Nunjucks (.html)
+        // compiles and copies files
+        nunjucks: {
+            options: {
+                data: grunt.file.readJSON('data.json'),
+                paths: '<%= src %>/html',
+                components: '_components',
+                layouts: '_layouts',
+                partials: '_partials',
+                marcros: '_marcros'
+            },
+            dev: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= src %>/html',
+                    src: ['**/*.html'],
+                    dest: './<%= dist %>/html/',
+                    ext: '.html'
+                }],
+            }
         },
-        src: ['_pages/**/*.hbs'],
-        dest: '<%= dist %>/html/'
-      }
-    },
 
-
-    copy: {
-      dev: {
-        files: [{
-          expand: true,
-          cwd: '_images',
-          src: '**',
-          dest: '<%= dist %>/images/'
-        }],
-      },
-    },
-
-
-    sass: {
-      dev: {
-        options: {
-          style: 'expanded'
+        // Sass (.scss / .sass)
+        // compiles and copies files.
+        sass: {
+            dev: {
+                options: {
+                    style: 'expanded',
+                    sourceMapContents: true,
+                    sourceMap: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= src %>/css',
+                    src: '**/*.scss',
+                    dest: '<%= dist %>/css',
+                    ext: '.css'
+                }]
+            },
+            prod: {
+                options: {
+                    style: 'compressed'
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= src %>/css',
+                    src: '**/*.scss',
+                    dest: '<%= dist %>/css',
+                    ext: '.css'
+                }]
+            },
         },
-        files: [{
-          expand: true,
-          cwd: '_css',
-          src: '**/*.scss',
-          dest: './<%= dist %>/css',
-          ext: '.css'
-        }]
-      },
-      prod: {
-        options: {
-          style: 'compressed'
+
+        // Babel.js (.js)
+        // Compiles and copies files.
+        babel: {
+            options: {
+                'sourceMap': true
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= src %>/js',
+                    src: '**/*.js',
+                    dest: '<%= dist %>/js'
+                }]
+            }
         },
-        files: [{
-          expand: true,
-          cwd: '_css',
-          src: '**/*.scss',
-          dest: './<%= dist %>/css',
-          ext: '.css'
-        }]
-      },
-    },
 
 
-    babel: {
-      options: {
-        "sourceMap": true
-      },
-      dist: {
-        files: [{
-          expand: true,
-          cwd: '_js',
-          src: '**/*.js',
-          dest: './<%= dist %>/js',
-        }]
-      }
-    },
-
-
-    uglify: {
-      prod: {
-        option: {
-          beautify: true,
-          mangle: true,
-          compress: true
+        // Javascript Parser and compressor
+        // Run after other tasks
+        uglify: {
+            prod: {
+                option: {
+                    beautify: true,
+                    mangle: true,
+                    compress: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= dist %>/js',
+                    src: '**/*.js',
+                    dest: '<%= dist %>/js',
+                }]
+            }
         },
-        files: [{
-          expand: true,
-          cwd: './<%= dist %>/js',
-          src: '**/*.js',
-          dest: './<%= dist %>/js',
-        }]
-      }
-    },
 
-
-    htmlmin: {
-      prod: {
-        options: {
-          removeComments: true,
-          collapseWhitespace: true
+        // Html Minification (.html) (production only)
+        // Run after other tasks.
+        htmlmin: {
+            prod: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true
+                },
+                expand: true,
+                cwd: '<%= dist %>/html',
+                src: ['**/*.html'],
+                dest: '<%= dist %>/html'
+            },
         },
-        expand: true,
-        cwd: '<%= dist %>',
-        src: ['**/*.html'],
-        dest: '<%= dist %>'
-      },
-    },
 
 
-    imagemin: {
-      prod: {
-        files: [{
-          expand: true,
-          cwd: '<%= dist %>',
-          src: ['**/*.{png,jpg,gif}'],
-          dest: '<%= dist %>'
-        }]
-      }
-    },
+        // Image Minification (.png, .jpg, .gif) (production only)
+        // Run after other tasks.
+        imagemin: {
+            prod: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= dist %>',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: '<%= dist %>'
+                }]
+            }
+        },
+
+        // Watch Files
+        // Run after all other tasks
+        watch: {
+            js: {
+                files: ['<%= src %>/js/**/*.js'],
+                tasks: ['babel'],
+                options: {
+                    spawn: false,
+                    livereload: true
+                }
+            },
+            styles: {
+                files: ['<%= src %>/css/**/*.scss'],
+                tasks: ['sass:dev'],
+                options: {
+                    spawn: false,
+                    livereload: true
+                }
+            },
+            html: {
+                files: ['<%= src %>/**/*.html', '<%= src %>/**/*.njk'],
+                tasks: ['clean:html', 'nunjucks'],
+                options: {
+                    spawn: false,
+                    livereload: true
+                }
+            },
+            gruntfile: {
+                files: 'gruntfile.js',
+                options: {
+                    spawn: false,
+                    livereload: true,
+                    reload: true
+                }
+            }
+        },
+
+        // Copy Files
+        // Used for copying images into dist folder.
+        // Run after other tasks.
+        copy: {
+            dev: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= src %>/images',
+                    src: '**',
+                    dest: '<%= dist %>/images'
+                }],
+            },
+        },
+    });
+
+    // Load the plugins to run your tasks
+    require('load-grunt-tasks')(grunt, {
+        scope: 'devDependencies'
+    });
+    require('time-grunt')(grunt);
 
 
-    connect: {
-      options: {
-        livereload: true,
-        port: 9001,
-        base: './<%= dist %>/',
-      },
-      rules: [{
-        from: '(^((?!css|html|js|img|fonts|\/$).)*$)',
-        to: "$1.html"
-      }],
-      server: {
-        options: {
-          middleware: function(connect, options) {
-            return [
-              rewriteRulesSnippet,
-              connect["static"](require("path").resolve(options.base[0]))
-            ];
-          }
-        }
-      },
-    },
+    grunt.registerTask('dev', [
+        'clean:dev',
+        'copy:dev',
+        'nunjucks',
+        'babel',
+        'sass:dev',
+        'watch'
+    ]);
 
-
-    watch: {
-      pages: {
-        files: [
-          '_layouts/**/*.hbs',
-          '_pages/**/*.hbs',
-          '_partials/**/*.hbs'
-        ],
-        tasks: ['assemble:dev']
-      },
-      js: {
-        files: ['_js/**/*.js'],
-        tasks: ['babel']
-      },
-      styles: {
-        files: ['_css/**/*.scss'],
-        tasks: ['sass:dev']
-      }
-    },
-
-
-    clean: {
-      dev: {
-        src: ['<%= dist %>/**/*']
-      },
-    }
-
-  });
-
-  grunt.loadNpmTasks('assemble');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-connect-rewrite');
-  grunt.loadNpmTasks('grunt-contrib-sass');
-  grunt.loadNpmTasks('grunt-babel');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-htmlmin');
-  grunt.loadNpmTasks('grunt-contrib-imagemin');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-
-  grunt.registerTask('build', ['assemble:site', 'sass:all']);
-
-  // Build
-  // Rebuild and Watch entire website
-  grunt.registerTask('dev', [
-    'clean:dev',
-    'copy:dev',
-    'assemble:dev',
-    'babel',
-    'sass:dev',
-    'configureRewriteRules',
-    'connect:server',
-    'watch'
-  ]);
-
-  // Build
-  // Rebuild and Watch specific-per-page items
-  grunt.registerTask('prod', [
-    'clean:dev',
-    'copy:dev',
-    'assemble:dev',
-    'babel',
-    'uglify:prod',
-    'sass:prod',
-    'configureRewriteRules',
-    'connect:server',
-    'htmlmin:prod',
-    'imagemin:prod',
-    'watch'
-  ]);
+    grunt.registerTask('prod', [
+        'clean:dev',
+        'copy:dev',
+        'nunjucks',
+        'babel',
+        'sass:prod',
+        'uglify:prod',
+        'htmlmin:prod',
+        'imagemin:prod',
+    ]);
 };
-
-
-// TODO
-
-  // Theme Specific
-  // When your project gets out of control from all the variations or themes, compiling soley the theme you're developing is important and time saving for development.
-
-  // var theme = grunt.option('theme') || 'all';
-  //
-  // grunt.registerTask('theme', [
-  //   'clean:' + theme,
-  //   'assemble:' + theme,
-  //   'uglify:' + theme,
-  //   'sass:' + theme,
-  //   'configureRewriteRules',
-  //   'connect:server',
-  //   'watch'
-  // ]);

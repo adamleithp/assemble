@@ -1,47 +1,38 @@
 # Assemble
+_Component led design patterns with Nunjucks, Grunt &amp; RestCss._
 
-Build highly functional static websites with minimal effort.
+Build a static new website in a component based way with very rapid prototyping. Nunjucks templating for components, RestCss to structure it all together.
 
-Per page assets compiled and rendered in the folder structure you choose.
+##### Features:
+* Built for web services such as AmazonS3, Google Cloud Storage.
+* Static website scafolding and generator (from JSON). **(Soon)**
+* Per Page Javascipt, Per page CSS,  
 
-Built with [Assemble](https://github.com/assemble/assemble/) and [HandleBars](https://github.com/wycats/handlebars.js/) with [Grunt.js](https://github.com/gruntjs/grunt) powering it all. With [Markdown](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet), [Sass](http://sass-lang.com/) and [Babel.js](https://github.com/babel/babel),
+----
 
 
----
+## Installation
 
-### Static is the future
-With hosting your static files on AWS + CloudFront Geo Distribution + RESTful API's, you have a recipe to have one of the fastest reactive websites on the planet.
+I'm assuming you already have node before you start if not then you'll need to [install it](https://nodejs.org/en/) before proceeding.
 
----
+* `git clone https://github.com/adamleithp/assemble.git`
+* `cd assemble` to go to directory
+* `npm install` to add all node dependencies found in package.json
 
-**Motto: Rapid protyping with reusable content with a static html output.**
+### Tasks
 
----
+Development: Compile code, run server
 
-## Get Started
+* `npm run dev`
 
-* `npm install -g grunt-cli`
-* `npm install`
+Production: Compile, minify code
 
-**Developement**
-* `grunt dev`
+* `npm run prod`
 
-**Production environment**
-Production ready static files, assets compression including image compression.
-* `grunt prod`
+## Todo
 
----
+* Grunt tasks for specific pages and all of its dependency pages using built dynamically through `data.json`
 
-### Add a page?
-create a folder in pages, configure handlebars options inside file, that's it.
+## Versioning
 
-Want per page assets (css, js, etc?)
-Create a folder with the same name as the folder name for your page inside the asset folder type you'd like to have.
-
----
-#### TODO
-
-* Documentation: Write proper style guides and design patterns
-* Grunt: Break down grunt tasks into more faster respective builds (clean etc)
-* Development: Test API calls from forms
-* The world.
+I'm following this guide to semantic versioning: http://semver.org/.

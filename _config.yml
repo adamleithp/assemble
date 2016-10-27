@@ -1,5 +1,0 @@
-# Build
-src: src
-dist: _site
-
-baseurl: ""
