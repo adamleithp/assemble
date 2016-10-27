@@ -4,8 +4,10 @@ var app = express();
 
 // Define the port to run on
 app.set('port', 3000);
+var root = '_site/';
 
-app.use(express.static(path.join(__dirname, '_site/html')));
+app.use('/css', express.static(path.join(__dirname, root + 'css')));
+app.use(express.static(path.join(__dirname, root, 'html/pages')));
 
 // Listen for requests
 var server = app.listen(app.get('port'), function() {

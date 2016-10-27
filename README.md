@@ -31,6 +31,7 @@ Production: Compile, minify code
 
 ## Todo
 
+* Fix server.js static config
 * Grunt tasks for specific pages and all of its dependency pages using built dynamically through `data.json`
 
 ## Versioning

@@ -1,4 +1,4 @@
-const about = function() {
+const home = function() {
   $.getJSON("http://www.reddit.com/r/pics.json?jsonp=?", function(data){
     $.each(
       data.data.children.slice(0, 5),
@@ -13,4 +13,4 @@ const about = function() {
 
 }
 
-about()
+home()

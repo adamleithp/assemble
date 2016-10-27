@@ -1,8 +1,23 @@
 {
-  "variation" : [
+  "name" : "base",
+  "site" : "<siteName>",
+  "pages" : [
     {
-      "name" : "base",
-      "site" : "<siteName>"
+      "page" : {
+        "name" : "Home",
+        "page_title": "Home",
+        "page_description": "This is the home page"
+      },
+      "page" : {
+        "name" : "Contact",
+        "page_title": "Contact",
+        "page_description": "This is the Contact page"
+      }
     }
+  ],
+  "nav_items" : [
+    {"menu_item" : "index"},
+    {"menu_item" : "contact"}
   ]
+
 }

@@ -1,0 +1,29 @@
+{# Layout #}
+{% extends "layouts/base.njk" %}
+{% set base_path = "../" %}
+
+{# Page Information #}
+{% set page_slug = "home" %}
+{% set page_title = "Home" %}
+{% set page_description = "This is the Home page" %}
+
+{# Page Assets #}
+{% set variation_css_global = "base" %}
+{% set variation_js_global = "base" %}
+{% set variation_css = "base" %}
+{% set variation_js = "base" %}
+
+{# Frameworks #}
+{% set jquery = false %}
+
+{# Macros / Components #}
+{% import "macros/macro-card.njk" as macroCard %}
+
+
+
+{# Content #}
+{% block main %}
+
+    Home Page
+
+{% endblock %}

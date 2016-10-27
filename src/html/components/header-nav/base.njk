@@ -1,0 +1,5 @@
+<div class="nav navbar-nav">
+  {% for item in pages %}
+    <a class="nav-item nav-link" href="{{ item.name | lower | replace(" ", "") }}.html">{{ item.name }}</a>
+  {% endfor %}
+</div>

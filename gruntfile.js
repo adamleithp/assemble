@@ -25,16 +25,16 @@ module.exports = function(grunt) {
             options: {
                 data: grunt.file.readJSON('data.json'),
                 paths: '<%= src %>/html',
-                components: '_components',
-                layouts: '_layouts',
-                partials: '_partials',
-                marcros: '_marcros'
+                components: 'components',
+                layouts: 'layouts',
+                partials: 'partials',
+                marcros: 'marcros'
             },
             dev: {
                 files: [{
                     expand: true,
                     cwd: '<%= src %>/html',
-                    src: ['**/*.html'],
+                    src: ['pages/**/*.njk'],
                     dest: './<%= dist %>/html/',
                     ext: '.html'
                 }],

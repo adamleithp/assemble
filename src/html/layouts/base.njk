@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{{ page_title }}</title>
+		<meta name="description" content="{{ page_description }}">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% block styles %}
+      {% include "partials/header-styles.njk" %}
+    {% endblock %}
+
+    {% block header_scripts %}
+      {% include "partials/header-scripts.njk" %}
+    {% endblock %}
+  </head>
+  <body class="page--{{ page_slug }}">
+  {% block header %}
+    {% include "components/header/base.njk" %}
+  {% endblock %}
+
+  {% block main %}
+    main
+  {% endblock %}
+
+  {% block footer %}
+    {% include "components/footer/base.njk" %}
+  {% endblock %}
+
+  {% block footer_scripts %}
+    {% include "partials/footer-scripts.njk" %}
+  {% endblock %}
+  </body>
+</html>

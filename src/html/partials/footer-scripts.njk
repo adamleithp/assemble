@@ -1,0 +1,7 @@
+{% if variation_js_global %}
+  <script src="/js/global/{{variation_js_global}}.js"></script>
+{% endif %}
+
+{% if variation_js %}
+  <script src="/js/{{page_slug}}/{{variation_js}}.js"></script>
+{% endif %}

@@ -1,0 +1,29 @@
+{# Layout #}
+{% extends "layouts/base.njk" %}
+{% set base_path = "../" %}
+
+{# Page Information #}
+{% set page_slug = "contact" %}
+{% set page_title = "Contact" %}
+{% set page_description = "This is the Contact page" %}
+
+{# Page Assets #}
+{% set variation_css_global = "base" %}
+{% set variation_js_global = "base" %}
+{% set variation_css = "base" %}
+{% set variation_js = "base" %}
+
+{# Frameworks #}
+{% set jquery = true %}
+
+{# Macros / Components #}
+{% import "macros/macro-card.njk" as macroCard %}
+
+
+
+{# Content #}
+{% block main %}
+
+    Contact Page
+
+{% endblock %}
